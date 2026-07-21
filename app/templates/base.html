@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Habit Tracker{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <nav class="topnav">
+    <a href="{{ url_for('calendar_view') }}">Calendar</a>
+    <a href="{{ url_for('quick_add') }}">Quick Add</a>
+    <a href="{{ url_for('library') }}">Library</a>
+    <a href="{{ url_for('review') }}">Weekend Review</a>
+  </nav>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="flash">{{ messages[0] }}</div>
+    {% endif %}
+  {% endwith %}
+
+  {% block nudge %}{% endblock %}
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

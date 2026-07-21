@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Quick Add{% endblock %}
+
+{% block content %}
+  <h2>Log for {{ today }}</h2>
+
+  <form class="stacked" method="post" action="{{ url_for('quick_add') }}">
+    <label>Steps
+      <input type="number" name="steps" min="0" placeholder="e.g. 10200">
+    </label>
+
+    <label>Book
+      <select name="book_id">
+        <option value="">-- choose a book --</option>
+        {% for bid, b in books.items() %}
+          <option value="{{ bid }}">{{ b.title }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Pages read
+      <input type="number" name="pages" min="0">
+    </label>
+
+    <label>Article title
+      <input type="text" name="article_title" placeholder="Why AI PMs Need Systems Thinking">
+    </label>
+    <label>Article source (URL)
+      <input type="text" name="article_source">
+    </label>
+    <label>Article tags (comma-separated)
+      <input type="text" name="article_tags" placeholder="ai-pm, systems-thinking">
+    </label>
+
+    <label>Notes
+      <textarea name="notes" rows="3"></textarea>
+    </label>
+
+    <button type="submit">Save entry</button>
+  </form>
+
+  <hr class="section-divider">
+
+  <h3>Not seeing your book?</h3>
+  <form class="stacked" method="post" action="{{ url_for('new_book') }}">
+    <label>Title
+      <input type="text" name="title" required>
+    </label>
+    <label>Author
+      <input type="text" name="author">
+    </label>
+    <label>Total pages
+      <input type="number" name="total_pages" min="1">
+    </label>
+    <button type="submit" class="secondary">Add book to library</button>
+  </form>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Library{% endblock %}
+
+{% block content %}
+  <h2>Books</h2>
+  {% for b in books %}
+    <div class="book-card">
+      <strong>{{ b.title }}</strong>{% if b.author %} &mdash; {{ b.author }}{% endif %}
+      <div style="font-size:0.85rem;color:var(--muted);margin-top:2px;">
+        {{ b.status }}{% if b.total_pages %} &middot; {{ b.current_page }} / {{ b.total_pages }} pages{% endif %}
+      </div>
+      {% if b.total_pages %}
+        <div class="progress-bar"><div class="fill" style="width:{{ b.progress_pct }}%;"></div></div>
+      {% endif %}
+    </div>
+  {% else %}
+    <p>No books yet. Add one from the Quick Add page.</p>
+  {% endfor %}
+
+  <hr class="section-divider">
+
+  <h2>Articles</h2>
+  <div style="margin-bottom:1rem;">
+    <a href="{{ url_for('library') }}" class="tag" style="{{ 'font-weight:bold' if not tag_filter }}">all</a>
+    {% for tag in all_tags %}
+      <a href="{{ url_for('library', tag=tag) }}" class="tag" style="{{ 'font-weight:bold' if tag_filter == tag }}">{{ tag }}</a>
+    {% endfor %}
+  </div>
+  {% for a in articles %}
+    <div class="article-row">
+      <strong>{{ a.title }}</strong>
+      <div style="font-size:0.8rem;color:var(--muted);">{{ a.date }}{% if a.source %} &middot; {{ a.source }}{% endif %}</div>
+      {% for tag in a.tags or [] %}<span class="tag">{{ tag }}</span>{% endfor %}
+    </div>
+  {% else %}
+    <p>No articles logged yet.</p>
+  {% endfor %}
+{% endblock %}

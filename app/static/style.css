@@ -1,0 +1,211 @@
+:root {
+  --bg: #F8F6F2;
+  --text: #1A1A1A;
+  --muted: #8C8A85;
+  --surface: #FBFAF8;
+  --good: #3E6B4F;
+  --bad: #A8433A;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Georgia, serif;
+  margin: 0;
+  padding: 0 1.5rem 3rem;
+}
+
+.topnav {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--muted);
+  margin-bottom: 1.5rem;
+}
+
+.topnav a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+}
+
+.topnav a:hover { color: var(--good); }
+
+main { max-width: 760px; margin: 0 auto; }
+
+.flash {
+  background: var(--surface);
+  border: 1px solid var(--good);
+  color: var(--good);
+  padding: 0.6rem 1rem;
+  border-radius: 4px;
+  max-width: 760px;
+  margin: 0 auto 1rem;
+}
+
+.nudge-banner {
+  background: var(--surface);
+  border: 1px solid var(--bad);
+  color: var(--bad);
+  padding: 0.6rem 1rem;
+  border-radius: 4px;
+  max-width: 760px;
+  margin: 0 auto 1rem;
+  font-size: 0.9rem;
+}
+
+h1, h2, h3 { font-weight: 500; }
+
+.streak-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.streak-card {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--muted);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  text-align: center;
+}
+
+.streak-card .label { font-size: 0.8rem; color: var(--muted); }
+.streak-card .current { font-size: 1.6rem; }
+.streak-card .longest { font-size: 0.8rem; color: var(--muted); }
+
+.month-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.month-nav a { color: var(--text); text-decoration: none; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+.grid .dow {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--muted);
+  padding-bottom: 4px;
+}
+
+.cell {
+  background: var(--surface);
+  border: 1px solid var(--muted);
+  border-radius: 6px;
+  min-height: 68px;
+  padding: 6px;
+  position: relative;
+}
+
+.cell.out-of-month { opacity: 0.35; }
+.cell.today { border-color: var(--text); border-width: 2px; }
+.cell.missed { border-color: var(--bad); }
+
+.cell .daynum { font-size: 0.85rem; }
+
+.habit-dots { display: flex; gap: 3px; margin-top: 6px; }
+
+.dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--muted); opacity: 0.4;
+}
+.dot.met { background: var(--good); opacity: 1; }
+.dot.missed { background: var(--bad); opacity: 1; }
+
+.backfilled-mark {
+  position: absolute; top: 4px; right: 6px;
+  font-size: 0.65rem; color: var(--muted);
+}
+
+form.stacked label {
+  display: block;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+form.stacked input, form.stacked select, form.stacked textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--muted);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--text);
+  font-family: inherit;
+  margin-top: 0.25rem;
+}
+
+button, input[type=submit] {
+  margin-top: 1.25rem;
+  padding: 0.55rem 1.2rem;
+  border: 1px solid var(--good);
+  background: var(--good);
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+button.secondary {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--muted);
+}
+
+.book-card, .article-row {
+  background: var(--surface);
+  border: 1px solid var(--muted);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.6rem;
+}
+
+.progress-bar {
+  background: var(--bg);
+  border: 1px solid var(--muted);
+  border-radius: 4px;
+  height: 8px;
+  margin-top: 6px;
+  overflow: hidden;
+}
+
+.progress-bar .fill {
+  background: var(--good);
+  height: 100%;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  color: var(--muted);
+  border: 1px solid var(--muted);
+  border-radius: 3px;
+  padding: 1px 6px;
+  margin-right: 4px;
+}
+
+.missed-day-row {
+  background: var(--surface);
+  border: 1px solid var(--bad);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--muted);
+  margin: 1.5rem 0;
+}

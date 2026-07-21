@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Calendar{% endblock %}
+
+{% block nudge %}
+  {% if nudge %}
+    <div class="nudge-banner">{{ nudge }}</div>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <div class="streak-row">
+    {% for habit, label in [("steps", "Steps"), ("reading", "Reading"), ("professional_reading", "Prof. Reading")] %}
+      <div class="streak-card">
+        <div class="label">{{ label }}</div>
+        <div class="current">{{ streaks[habit]["current"] }}</div>
+        <div class="longest">longest {{ streaks[habit]["longest"] }}</div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="month-nav">
+    <a href="{{ url_for('calendar_view', year=prev_month.year, month=prev_month.month) }}">&larr; prev</a>
+    <h2>{{ month_name }} {{ year }}</h2>
+    <a href="{{ url_for('calendar_view', year=next_month.year, month=next_month.month) }}">next &rarr;</a>
+  </div>
+
+  <div class="grid">
+    {% for dow in ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"] %}
+      <div class="dow">{{ dow }}</div>
+    {% endfor %}
+
+    {% for week in weeks %}
+      {% for day in week %}
+        <div class="cell {% if not day.in_month %}out-of-month{% endif %} {% if day.is_today %}today{% endif %} {% if day.state == 'missed' %}missed{% endif %}">
+          <div class="daynum">{{ day.date.day }}</div>
+          {% if day.backfilled %}<div class="backfilled-mark">bf</div>{% endif %}
+          {% if day.derived %}
+            <div class="habit-dots">
+              <span class="dot {{ 'met' if day.derived.steps_goal_met else 'missed' }}"></span>
+              <span class="dot {{ 'met' if day.derived.reading_goal_met else 'missed' }}"></span>
+              <span class="dot {{ 'met' if day.derived.professional_reading_done else 'missed' }}"></span>
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    {% endfor %}
+  </div>
+{% endblock %}

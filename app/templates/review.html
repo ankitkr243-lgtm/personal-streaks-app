@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Weekend Review{% endblock %}
+
+{% block content %}
+  <h2>Missed days (past week)</h2>
+
+  {% for m in missed %}
+    <div class="missed-day-row">
+      <strong>{{ m.date_str }}</strong> ({{ m.date.strftime('%A') }})
+
+      <form class="stacked" method="post" action="{{ url_for('review_backfill') }}">
+        <input type="hidden" name="date" value="{{ m.date_str }}">
+        <label>Steps
+          <input type="number" name="steps" min="0">
+        </label>
+        <label>Book
+          <select name="book_id">
+            <option value="">-- choose a book --</option>
+            {% for bid, b in books.items() %}
+              <option value="{{ bid }}">{{ b.title }}</option>
+            {% endfor %}
+          </select>
+        </label>
+        <label>Pages read
+          <input type="number" name="pages" min="0">
+        </label>
+        <label>Article title
+          <input type="text" name="article_title">
+        </label>
+        <label>Article source
+          <input type="text" name="article_source">
+        </label>
+        <label>Article tags
+          <input type="text" name="article_tags">
+        </label>
+        <label>Notes
+          <textarea name="notes" rows="2"></textarea>
+        </label>
+        <button type="submit">Backfill this day</button>
+      </form>
+
+      <form method="post" action="{{ url_for('review_mark_reviewed') }}" style="display:inline;">
+        <input type="hidden" name="date" value="{{ m.date_str }}">
+        <button type="submit" class="secondary">Mark reviewed, no backfill</button>
+      </form>
+    </div>
+  {% else %}
+    <p>Nothing to review &mdash; no missed days in the past week.</p>
+  {% endfor %}
+{% endblock %}
