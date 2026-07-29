@@ -16,4 +16,17 @@ tags: []
 ```
 
 ---
+## Careless People
+```yaml
+id: careless-people
+title: Careless People
+author: Sarah Wynn-Williams
+total_pages: null
+status: finished
+start_date: null
+finish_date: '2026-07-26'
+tags: []
+```
+
+---
 
